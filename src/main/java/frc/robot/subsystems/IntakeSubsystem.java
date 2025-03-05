@@ -29,11 +29,11 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public Command intakeCommand() {
-        return Commands.startEnd(() -> this.percentOut(0.5), this::stop, this).withTimeout(5);
+        return Commands.startEnd(() -> this.percentOut(0.5), this::stop, this);
     }
 
     public Command outtakeCommand() {
-        return Commands.startEnd(() -> this.percentOut(-0.5), this::stop, this).withTimeout(5);
+        return Commands.startEnd(() -> this.percentOut(-0.5), this::stop, this);
     }
 
     @Override

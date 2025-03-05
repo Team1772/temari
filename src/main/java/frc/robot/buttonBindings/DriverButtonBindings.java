@@ -41,8 +41,8 @@ public class DriverButtonBindings {
     }
 
     public void intakeButtonBindings() {
-        driver.leftTrigger().onTrue(intakeSubsystem.intakeCommand());
-        driver.rightTrigger().onTrue(intakeSubsystem.outtakeCommand());
+        driver.leftTrigger().whileTrue(intakeSubsystem.intakeCommand());
+        driver.rightTrigger().whileTrue(intakeSubsystem.outtakeCommand());
     }
 
     public void jointButtonBindings() {
