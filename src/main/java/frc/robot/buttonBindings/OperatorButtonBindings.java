@@ -1,5 +1,6 @@
 package frc.robot.buttonBindings;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -7,16 +8,11 @@ import frc.robot.subsystems.JointSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 
 public class OperatorButtonBindings {
-    @SuppressWarnings("unused")
     private final CommandXboxController operator;
 
-    @SuppressWarnings("unused")
     private final DrivetrainSubsystem drivetrainSubsystem;
-    @SuppressWarnings("unused")
     private final IntakeSubsystem intakeSubsystem;
-    @SuppressWarnings("unused")
     private final JointSubsystem jointSubsystem;
-    @SuppressWarnings("unused")
     private final LauncherSubsystem launcherSubsystem;
 
     public OperatorButtonBindings(CommandXboxController operator, DrivetrainSubsystem drivetrainSubsystem, 
@@ -42,11 +38,16 @@ public class OperatorButtonBindings {
     }
 
     public void intakeButtonBindings() {
+        operator.leftTrigger().whileTrue(intakeSubsystem.intakeCommand());
+        operator.rightTrigger().whileTrue(intakeSubsystem.outtakeCommand());
     }
 
     public void jointButtonBindings() {
+        operator.rightBumper().whileTrue(jointSubsystem.runEnd(() -> jointSubsystem.percentOut(0.5), jointSubsystem::stop));
+        operator.leftBumper().whileTrue(jointSubsystem.runEnd(() -> jointSubsystem.percentOut(-0.5), jointSubsystem::stop));
     }
 
     public void launcherButtonBindings() {
+        operator.a().whileTrue(Commands.startEnd(() -> launcherSubsystem.percentOut(1), launcherSubsystem::stop, launcherSubsystem));
     }
 }

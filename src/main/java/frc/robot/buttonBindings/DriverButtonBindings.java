@@ -41,21 +41,11 @@ public class DriverButtonBindings {
     }
 
     public void intakeButtonBindings() {
-        driver.leftTrigger().whileTrue(intakeSubsystem.intakeCommand());
-        driver.rightTrigger().whileTrue(intakeSubsystem.outtakeCommand());
     }
 
     public void jointButtonBindings() {
-        driver.rightBumper().and(jointSubsystem::hasJointTimerElapsed)
-            .onTrue(jointSubsystem.restartJointTimerCommand()
-            .andThen(jointSubsystem.toggleCommand())
-            .andThen(jointSubsystem.stopJointTimerCommand()));
     }
 
     public void launcherButtonBindings() {
-        driver.leftBumper().onTrue(Commands.race(
-            Commands.startEnd(() -> launcherSubsystem.percentOut(1), launcherSubsystem::stop, launcherSubsystem),
-            Commands.waitSeconds(5).andThen(intakeSubsystem.intakeCommand())
-        ));
     }
 }
